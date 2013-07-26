@@ -1,0 +1,13 @@
+# Intellij IDEA files
+*.iml
+**/*.iml
+.idea
+**/.idea
+
+# Compiled binaries
+target
+**/target
+**/bin
+
+# junk
+.DS_Store
