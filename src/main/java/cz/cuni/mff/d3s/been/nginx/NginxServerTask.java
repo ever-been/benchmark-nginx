@@ -12,8 +12,7 @@ import cz.cuni.mff.d3s.been.taskapi.CheckpointController;
 import cz.cuni.mff.d3s.been.taskapi.Task;
 
 /**
- * 
- * @author Kuba Břečka
+ * @author Kuba Brecka
  */
 public class NginxServerTask extends Task {
 

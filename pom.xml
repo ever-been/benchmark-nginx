@@ -24,6 +24,11 @@
 			<artifactId>commons-exec</artifactId>
 			<version>1.1</version>
 		</dependency>
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.13</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -60,6 +65,7 @@
 
 					<taskDescriptors>
 						<param>src/main/resources/cz/cuni/mff/d3s/been/nginx/NginxBenchmark.td.xml</param>
+						<param>src/main/resources/cz/cuni/mff/d3s/been/nginx/NginxEvaluator.td.xml</param>
 					</taskDescriptors>
 					<taskContextDescriptors>
 						<param>src/main/resources/cz/cuni/mff/d3s/been/nginx/Nginx.tcd.xml</param>

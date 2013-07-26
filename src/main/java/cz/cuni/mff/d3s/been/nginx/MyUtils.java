@@ -11,11 +11,7 @@ import java.net.ServerSocket;
 import java.net.UnknownHostException;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Kuba
- * Date: 21.04.13
- * Time: 17:39
- * To change this template use File | Settings | File Templates.
+ * @author Kuba Brecka
  */
 public class MyUtils {
 	public static String exec(String cwd, String program, String[] args) {

@@ -2,24 +2,29 @@ package cz.cuni.mff.d3s.been.nginx;
 
 import java.util.Date;
 
+import cz.cuni.mff.d3s.been.core.persistence.EntityID;
 import cz.cuni.mff.d3s.been.results.Result;
 
 /**
- * Created with IntelliJ IDEA. User: Kuba Date: 21.04.13 Time: 16:54 To change
- * this template use File | Settings | File Templates.
+ * @author Kuba Brecka
  */
 public class HttperfResult extends Result {
 
-	class MetaInfo {
+	public static final EntityID RESULT_ENTITY_ID = new EntityID().withKind("result").withGroup("nginx");
+
+	static class MetaInfo {
 		String hostname;
 		Date timestamp;
 		String taskId;
 		String taskContextId;
+
+		// JSON deserializer needs this constructor
+		public MetaInfo() {}
 	}
 
 	MetaInfo metaInformation;
 
-	class Parameters {
+	static class Parameters {
 		int revision;
 		int numberOfClients;
 		int numberOfRuns;
@@ -27,11 +32,23 @@ public class HttperfResult extends Result {
 		int requestsPerConnection;
 		int sendBuffer;
 		int recvBuffer;
+
+		// JSON deserializer needs this constructor
+		public Parameters() {}
 	}
 
 	Parameters parameters;
 
+	// JSON deserializer needs this constructor
+	public HttperfResult() {
+	}
+
 	public HttperfResult(NginxClientTask task) {
+		this.created = new Date().getTime();
+		this.benchmarkId = task.getBenchmarkId();
+		this.contextId = task.getContextId();
+		this.taskId = task.getId();
+
 		metaInformation = new MetaInfo();
 		metaInformation.timestamp = new Date();
 		metaInformation.hostname = MyUtils.getHostname();

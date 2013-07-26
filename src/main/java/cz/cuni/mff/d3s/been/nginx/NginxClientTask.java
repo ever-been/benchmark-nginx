@@ -14,8 +14,7 @@ import cz.cuni.mff.d3s.been.taskapi.ResultPersister;
 import cz.cuni.mff.d3s.been.taskapi.Task;
 
 /**
- * Created with IntelliJ IDEA. User: Kuba Date: 14.04.13 Time: 18:39 To change
- * this template use File | Settings | File Templates.
+ * @author Kuba Brecka
  */
 public class NginxClientTask extends Task {
 
@@ -50,11 +49,7 @@ public class NginxClientTask extends Task {
 	}
 
 	private void storeResult(HttperfResult result) {
-		final EntityID eid = new EntityID();
-		eid.setKind("results");
-		eid.setGroup("nginx-results");
-
-		try (final ResultPersister rp = results.createResultPersister(eid)) {
+		try (final ResultPersister rp = results.createResultPersister(HttperfResult.RESULT_ENTITY_ID)) {
 			rp.persist(result);
 			log.info("Result stored.");
 		} catch (DAOException e) {
@@ -167,6 +162,12 @@ public class NginxClientTask extends Task {
 			log.info("Client finished benchmarking.");
 
 			if (fakeRun) {
+				for (int i = 0; i < numberOfRuns; i++) {
+					HttperfResult fakeResult = new HttperfResult(this);
+					fakeResult.connectionTimeAvg = 100 + Math.random() * 300;
+					storeResult(fakeResult);
+				}
+
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e) {
