@@ -25,10 +25,11 @@ public class NginxServerTask extends Task {
 	private void downloadSources() {
 		if (fakeRun) return;
 
-		String svnPath = this.getProperty("svnPath");
+		String hgPath = this.getProperty("hgPath");
 		int currentRevision = Integer.parseInt(this.getProperty("revision"));
 
-		MyUtils.exec(".", "svn", new String[] { "checkout", "-r", Integer.toString(currentRevision), svnPath, "nginx" });
+		MyUtils.exec(".", "hg", new String[] { "clone", hgPath, "nginx" });
+		MyUtils.exec("./nginx", "hg", new String[] { "update", "-r", Integer.toString(currentRevision) });
 	}
 
 	private void buildSources() {

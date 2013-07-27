@@ -15,7 +15,7 @@
 		<name>server</name>
 
 		<properties>
-			<property name="svnPath">svn://svn.nginx.org/nginx/trunk</property>
+			<property name="hgPath">http://hg.nginx.org/nginx/</property>
 		</properties>
 
 		<descriptor>
