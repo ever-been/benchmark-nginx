@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <taskDescriptor xmlns="http://been.d3s.mff.cuni.cz/task-descriptor"
-                groupId="cz.cuni.mff.d3s.been" bpkId="benchmark-nginx" version="3.0.0-SNAPSHOT"
+                groupId="cz.cuni.mff.d3s.been" bpkId="benchmark-nginx" version="1.0-SNAPSHOT"
                 name="nginx-benchmark" type="benchmark">
 	<properties>
 		<property name="fromRevision">4532</property>
 		<property name="toRevision">4632</property>
 		<property name="fakeRun">true</property>
+		<property name="task.log.level">INFO</property>
 	</properties>
 
 	<java>

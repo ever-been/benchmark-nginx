@@ -2,7 +2,9 @@ package cz.cuni.mff.d3s.been.nginx;
 
 import cz.cuni.mff.d3s.been.benchmarkapi.Benchmark;
 import cz.cuni.mff.d3s.been.benchmarkapi.BenchmarkException;
+import cz.cuni.mff.d3s.been.benchmarkapi.ContextBuilder;
 import cz.cuni.mff.d3s.been.core.task.TaskContextDescriptor;
+import cz.cuni.mff.d3s.been.core.task.TaskContextState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,13 +26,25 @@ public class NginxBenchmark extends Benchmark {
 
 		log.info("Generating context for revision {}", currentRevision);
 
-		TaskContextDescriptor taskContextDescriptor = getTaskContextFromResource("Nginx.tcd.xml");
-		setTaskContextProperty(taskContextDescriptor, "revision", Integer.toString(currentRevision));
-		setTaskContextProperty(taskContextDescriptor, "fakeRun", Boolean.toString(fakeRun));
+		ContextBuilder contextBuilder = ContextBuilder.createFromResource(NginxBenchmark.class, "Nginx.tcd.xml");
+		contextBuilder.setProperty("revision", Integer.toString(currentRevision));
+		contextBuilder.setProperty("fakeRun", Boolean.toString(fakeRun));
+
+		TaskContextDescriptor taskContextDescriptor = contextBuilder.build();
 
 		currentRevision++;
 		this.storageSet("currentRevision", Integer.toString(currentRevision));
 
 		return taskContextDescriptor;
+	}
+
+	@Override
+	public void onResubmit() {
+
+	}
+
+	@Override
+	public void onTaskContextFinished(String s, TaskContextState taskContextState) {
+
 	}
 }
