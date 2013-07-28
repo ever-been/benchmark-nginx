@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>benchmark-nginx</groupId>
+    <groupId>cz.cuni.mff.d3s.been</groupId>
     <artifactId>benchmark-nginx</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -123,9 +123,6 @@
 					</execution>
 				</executions>
 				<configuration>
-					<taskContextDescriptors>
-						<param>src/main/resources/cz/cuni/mff/d3s/been/benchmark/hazelcast3/hazelcast3-queue.tcd.xml</param>
-					</taskContextDescriptors>
 					<taskDescriptors>
 						<param>src/main/resources/cz/cuni/mff/d3s/been/nginx/NginxBenchmark.td.xml</param>
 					</taskDescriptors>
