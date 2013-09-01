@@ -4,6 +4,7 @@ import cz.cuni.mff.d3s.been.core.persistence.EntityID;
 import cz.cuni.mff.d3s.been.persistence.DAOException;
 import cz.cuni.mff.d3s.been.persistence.Query;
 import cz.cuni.mff.d3s.been.persistence.QueryBuilder;
+import cz.cuni.mff.d3s.been.persistence.ResultQueryBuilder;
 import cz.cuni.mff.d3s.been.taskapi.ResultFacade;
 import org.jfree.chart.ChartColor;
 import org.jfree.chart.ChartFactory;
@@ -65,7 +66,7 @@ public class PlotGenerator {
 		log.info("Retrieving data for benchmark {}", benchmarkId);
 
 		// select only the specified benchmark ID
-		Query query = new QueryBuilder().on(HttperfResult.RESULT_ENTITY_ID).with("benchmarkId", benchmarkId).fetch();
+		Query query = new ResultQueryBuilder().on(HttperfResult.RESULT_GROUP).with("benchmarkId", benchmarkId).fetch();
 
 		// get the data from database
 		Collection<HttperfResult> results;

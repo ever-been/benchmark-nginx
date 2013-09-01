@@ -10,7 +10,8 @@
 
 	<properties>
 		<!-- BEEN DEPENDENCIES -->
-		<been.api.version>3.0.0</been.api.version>
+		<been.version>3.0.0-SNAPSHOT</been.version>
+		<bpk-maven-plugin.version>1.0.0-SNAPSHOT</bpk-maven-plugin.version>
 
 
 		<!-- 3RD PARTY DEPENDENCIES -->
@@ -42,13 +43,13 @@
 		<dependency>
 			<groupId>cz.cuni.mff.d3s.been</groupId>
 			<artifactId>task-api</artifactId>
-			<version>${been.api.version}</version>
+			<version>${been.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>cz.cuni.mff.d3s.been</groupId>
 			<artifactId>benchmark-api</artifactId>
-			<version>${been.api.version}</version>
+			<version>${been.version}</version>
 		</dependency>
 
 		<!-- THIRD PARTY -->
@@ -113,8 +114,8 @@
 
 			<plugin>
 				<groupId>cz.cuni.mff.d3s.been</groupId>
-				<artifactId>bpk-plugin</artifactId>
-				<version>3.0.0</version>
+				<artifactId>bpk-maven-plugin</artifactId>
+				<version>${bpk-maven-plugin.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -130,4 +131,18 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>everbeen.cz-plugins-snapshots</id>
+			<url>http://everbeen.cz/artifactory/plugins-snapshot-local</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<repositories>
+		<repository>
+			<id>everbeen.cz-snapshots</id>
+			<url>http://everbeen.cz/artifactory/libs-snapshot-local</url>
+		</repository>
+	</repositories>
 </project>

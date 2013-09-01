@@ -10,7 +10,7 @@ import cz.cuni.mff.d3s.been.results.Result;
  */
 public class HttperfResult extends Result {
 
-	public static final EntityID RESULT_ENTITY_ID = new EntityID().withKind("result").withGroup("nginx");
+	public static final String RESULT_GROUP = "nginx";
 
 	static class MetaInfo {
 		String hostname;

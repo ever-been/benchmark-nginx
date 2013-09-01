@@ -10,7 +10,7 @@ import cz.cuni.mff.d3s.been.core.persistence.EntityID;
 import cz.cuni.mff.d3s.been.mq.MessagingException;
 import cz.cuni.mff.d3s.been.persistence.DAOException;
 import cz.cuni.mff.d3s.been.taskapi.CheckpointController;
-import cz.cuni.mff.d3s.been.taskapi.ResultPersister;
+import cz.cuni.mff.d3s.been.taskapi.Persister;
 import cz.cuni.mff.d3s.been.taskapi.Task;
 
 /**
@@ -49,7 +49,7 @@ public class NginxClientTask extends Task {
 	}
 
 	private void storeResult(HttperfResult result) {
-		try (final ResultPersister rp = results.createResultPersister(HttperfResult.RESULT_ENTITY_ID)) {
+		try (final Persister rp = results.createResultPersister(HttperfResult.RESULT_GROUP)) {
 			rp.persist(result);
 			log.info("Result stored.");
 		} catch (DAOException e) {
