@@ -25,8 +25,8 @@ public class NginxServerTask extends Task {
 	private void downloadSources() {
 		if (fakeRun) return;
 
-		String hgPath = this.getProperty("hgPath");
-		int currentRevision = Integer.parseInt(this.getProperty("revision"));
+		String hgPath = this.getTaskProperty("hgPath");
+		int currentRevision = Integer.parseInt(this.getTaskProperty("revision"));
 
 		MyUtils.exec(".", "hg", new String[] { "clone", hgPath, "nginx" });
 		MyUtils.exec("./nginx", "hg", new String[] { "update", "-r", Integer.toString(currentRevision) });
@@ -88,7 +88,7 @@ public class NginxServerTask extends Task {
 	@Override
 	public void run(String[] args) {
 		try (CheckpointController requestor = CheckpointController.create()) {
-			fakeRun = Boolean.parseBoolean(this.getProperty("fakeRun"));
+			fakeRun = Boolean.parseBoolean(this.getTaskProperty("fakeRun"));
 
 			log.info("Nginx Server Task started.");
 
@@ -105,7 +105,7 @@ public class NginxServerTask extends Task {
 			log.info("RunServer finished successfully.");
 			log.info("Waiting for clients...");
 
-			int numberOfClients = Integer.parseInt(this.getProperty("numberOfClients"));
+			int numberOfClients = Integer.parseInt(this.getTaskProperty("numberOfClients"));
 			requestor.latchSet("rendezvous-latch", numberOfClients);
 			requestor.checkPointSet("rendezvous-checkpoint", "ok");
 			requestor.latchWait("rendezvous-latch");

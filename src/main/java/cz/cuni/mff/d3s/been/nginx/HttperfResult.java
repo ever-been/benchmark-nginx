@@ -2,7 +2,6 @@ package cz.cuni.mff.d3s.been.nginx;
 
 import java.util.Date;
 
-import cz.cuni.mff.d3s.been.core.persistence.EntityID;
 import cz.cuni.mff.d3s.been.results.Result;
 
 /**
@@ -56,13 +55,13 @@ public class HttperfResult extends Result {
 		metaInformation.taskContextId = task.getContextId();
 
 		parameters = new Parameters();
-		parameters.revision = Integer.parseInt(task.getProperty("revision"));
-		parameters.numberOfClients = Integer.parseInt(task.getProperty("numberOfClients"));
-		parameters.numberOfRuns = Integer.parseInt(task.getProperty("numberOfRuns"));
-		parameters.numberOfConnections = Integer.parseInt(task.getProperty("numberOfConnections"));
-		parameters.requestsPerConnection = Integer.parseInt(task.getProperty("requestsPerConnection"));
-		parameters.sendBuffer = Integer.parseInt(task.getProperty("sendBuffer"));
-		parameters.recvBuffer = Integer.parseInt(task.getProperty("recvBuffer"));
+		parameters.revision = Integer.parseInt(task.getTaskProperty("revision"));
+		parameters.numberOfClients = Integer.parseInt(task.getTaskProperty("numberOfClients"));
+		parameters.numberOfRuns = Integer.parseInt(task.getTaskProperty("numberOfRuns"));
+		parameters.numberOfConnections = Integer.parseInt(task.getTaskProperty("numberOfConnections"));
+		parameters.requestsPerConnection = Integer.parseInt(task.getTaskProperty("requestsPerConnection"));
+		parameters.sendBuffer = Integer.parseInt(task.getTaskProperty("sendBuffer"));
+		parameters.recvBuffer = Integer.parseInt(task.getTaskProperty("recvBuffer"));
 	}
 
 	int connections;

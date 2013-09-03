@@ -6,11 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,7 +21,7 @@ public class NginxEvaluator extends Evaluator {
 
 	@Override
 	public EvaluatorResult evaluate() {
-		String benchmarkId = this.getProperty("benchmarkId");
+		String benchmarkId = this.getTaskProperty("benchmarkId");
 
 		PlotGenerator plotGenerator = new PlotGenerator();
 		plotGenerator.retrieveData(results, benchmarkId);

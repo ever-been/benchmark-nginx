@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cz.cuni.mff.d3s.been.core.persistence.EntityID;
 import cz.cuni.mff.d3s.been.mq.MessagingException;
 import cz.cuni.mff.d3s.been.persistence.DAOException;
 import cz.cuni.mff.d3s.been.taskapi.CheckpointController;
@@ -39,9 +38,9 @@ public class NginxClientTask extends Task {
 		int port = Integer.parseInt(splitted[1]);
 
 		String output = MyUtils.exec("./httperf-0.9.0", "src/httperf", new String[] { "--client=0/1",
-				"--server=" + hostname, "--port=" + port, "--uri=/", "--send-buffer=" + this.getProperty("sendBuffer"),
-				"--recv-buffer=" + this.getProperty("recvBuffer"), "--num-conns=" + this.getProperty("numberOfConnections"),
-				"--num-calls=" + this.getProperty("requestsPerConnection") });
+				"--server=" + hostname, "--port=" + port, "--uri=/", "--send-buffer=" + this.getTaskProperty("sendBuffer"),
+				"--recv-buffer=" + this.getTaskProperty("recvBuffer"), "--num-conns=" + this.getTaskProperty("numberOfConnections"),
+				"--num-calls=" + this.getTaskProperty("requestsPerConnection") });
 
 		HttperfResult result = parseOutput(output);
 
@@ -138,7 +137,7 @@ public class NginxClientTask extends Task {
 	@Override
 	public void run(String[] args) {
 		try (CheckpointController requestor = CheckpointController.create()) {
-			fakeRun = Boolean.parseBoolean(this.getProperty("fakeRun"));
+			fakeRun = Boolean.parseBoolean(this.getTaskProperty("fakeRun"));
 
 			log.info("Nginx Client Task started.");
 
@@ -152,7 +151,7 @@ public class NginxClientTask extends Task {
 
 			log.info("Client got server address: {}", serverAddress);
 
-			int numberOfRuns = Integer.parseInt(this.getProperty("numberOfRuns"));
+			int numberOfRuns = Integer.parseInt(this.getTaskProperty("numberOfRuns"));
 
 			for (int i = 0; i < numberOfRuns; i++) {
 				log.info("Starting run number {}", i);

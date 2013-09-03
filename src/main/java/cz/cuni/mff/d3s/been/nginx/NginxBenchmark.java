@@ -17,9 +17,9 @@ public class NginxBenchmark extends Benchmark {
 
 	@Override
 	public TaskContextDescriptor generateTaskContext() throws BenchmarkException {
-		int fromRevision = Integer.parseInt(this.getProperty("fromRevision"));
-		int toRevision = Integer.parseInt(this.getProperty("toRevision"));
-		boolean fakeRun = Boolean.parseBoolean(this.getProperty("fakeRun"));
+		int fromRevision = Integer.parseInt(this.getTaskProperty("fromRevision"));
+		int toRevision = Integer.parseInt(this.getTaskProperty("toRevision"));
+		boolean fakeRun = Boolean.parseBoolean(this.getTaskProperty("fakeRun"));
 
 		int currentRevision = Integer.parseInt(this.storageGet("currentRevision", Integer.toString(fromRevision)));
 		if (currentRevision > toRevision) return null;
