@@ -1,30 +1,44 @@
 package cz.cuni.mff.d3s.been.nginx;
 
-import cz.cuni.mff.d3s.been.evaluators.EvaluatorResult;
-import cz.cuni.mff.d3s.been.taskapi.Evaluator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
+
+import cz.cuni.mff.d3s.been.evaluators.EvaluatorResult;
+import cz.cuni.mff.d3s.been.taskapi.Evaluator;
+
 /**
+ * The evaluator task from the BEEN Nginx Sample Benchmark. This implements a
+ * stand-alone task that will retrieve results from a specific benchmark,
+ * calculate some statistics (standard deviations) and plot the results into a
+ * chart, which is then returned.
+ * 
  * @author Kuba Brecka
  */
 public class NginxEvaluator extends Evaluator {
 
-	private static final Logger log = LoggerFactory.getLogger(NginxEvaluator.class);
-
+	/**
+	 * The main class of this task, it should return a {@link EvaluatorResult}
+	 * object which basically represent a file and its data.
+	 * 
+	 * @return a new evaluation result to store
+	 */
 	@Override
 	public EvaluatorResult evaluate() {
+
+		// use getTaskProperty to retrieve a property of the current task
 		String benchmarkId = this.getTaskProperty("benchmarkId");
 
 		PlotGenerator plotGenerator = new PlotGenerator();
+
+		// the `results` field provides access to the results, see the implementation
+		// of `retrieveData` for more comments
 		plotGenerator.retrieveData(results, benchmarkId);
+
 		plotGenerator.performHardcoreStatisticCalculations();
 		BufferedImage image = plotGenerator.generateChart();
 		ByteArrayOutputStream os = new ByteArrayOutputStream();

@@ -126,6 +126,7 @@
 				<configuration>
 					<taskDescriptors>
 						<param>src/main/resources/cz/cuni/mff/d3s/been/nginx/NginxBenchmark.td.xml</param>
+						<param>src/main/resources/cz/cuni/mff/d3s/been/nginx/NginxEvaluator.td.xml</param>
 					</taskDescriptors>
 				</configuration>
 			</plugin>

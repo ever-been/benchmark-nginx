@@ -1,33 +1,27 @@
 package cz.cuni.mff.d3s.been.nginx;
 
-import cz.cuni.mff.d3s.been.core.persistence.EntityID;
-import cz.cuni.mff.d3s.been.persistence.DAOException;
-import cz.cuni.mff.d3s.been.persistence.Query;
-import cz.cuni.mff.d3s.been.persistence.QueryBuilder;
-import cz.cuni.mff.d3s.been.persistence.ResultQueryBuilder;
-import cz.cuni.mff.d3s.been.taskapi.ResultFacade;
-import org.jfree.chart.ChartColor;
-import org.jfree.chart.ChartFactory;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+
+import javax.imageio.ImageIO;
+
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYErrorRenderer;
-import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.YIntervalSeries;
 import org.jfree.data.xy.YIntervalSeriesCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
-import javax.swing.plaf.basic.BasicCheckBoxMenuItemUI;
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.*;
+import cz.cuni.mff.d3s.been.persistence.DAOException;
+import cz.cuni.mff.d3s.been.persistence.Query;
+import cz.cuni.mff.d3s.been.persistence.ResultQueryBuilder;
+import cz.cuni.mff.d3s.been.taskapi.ResultFacade;
 
 /**
  * @author Kuba Brecka
@@ -65,14 +59,15 @@ public class PlotGenerator {
 	public void retrieveData(ResultFacade resultFacade, String benchmarkId) {
 		log.info("Retrieving data for benchmark {}", benchmarkId);
 
-		// select only the specified benchmark ID
+		// creates a query that will retrieve data from our results group and with only the specified benchmark ID
 		Query query = new ResultQueryBuilder().on(HttperfResult.RESULT_GROUP).with("benchmarkId", benchmarkId).fetch();
 
-		// get the data from database
 		Collection<HttperfResult> results;
 		try {
+			// let's perform the query
 			results = resultFacade.query(query, HttperfResult.class);
-			if (results.size() == 0) throw new RuntimeException("No results found.");
+			if (results.size() == 0)
+				throw new RuntimeException("No results found.");
 		} catch (DAOException e) {
 			log.error("Cannot retrieve result.", e);
 			throw new RuntimeException(e);
@@ -81,7 +76,7 @@ public class PlotGenerator {
 		// group by revision
 		HashMap<Integer, ArrayList<Double>> map = new HashMap<>();
 		for (HttperfResult result : results) {
-			if (! map.containsKey(result.parameters.revision))
+			if (!map.containsKey(result.parameters.revision))
 				map.put(result.parameters.revision, new ArrayList<Double>());
 
 			map.get(result.parameters.revision).add(result.connectionTimeAvg);

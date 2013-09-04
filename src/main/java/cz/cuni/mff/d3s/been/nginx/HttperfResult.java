@@ -5,12 +5,22 @@ import java.util.Date;
 import cz.cuni.mff.d3s.been.results.Result;
 
 /**
+ * The storage class for results from the Httperf client benchmark.
+ * 
  * @author Kuba Brecka
  */
 public class HttperfResult extends Result {
 
+	/**
+	 * This specified a string value under which the results from this benchmark
+	 * are stored.
+	 */
 	public static final String RESULT_GROUP = "nginx";
 
+	/**
+	 * Inner classes are fine, they just need to be static and have a public
+	 * default constructor.
+	 */
 	static class MetaInfo {
 		String hostname;
 		Date timestamp;
@@ -39,8 +49,7 @@ public class HttperfResult extends Result {
 	Parameters parameters;
 
 	// JSON deserializer needs this constructor
-	public HttperfResult() {
-	}
+	public HttperfResult() {}
 
 	public HttperfResult(NginxClientTask task) {
 		this.created = new Date().getTime();
