@@ -32,6 +32,10 @@ public class NginxEvaluator extends Evaluator {
 
 		// use getTaskProperty to retrieve a property of the current task
 		String benchmarkId = this.getTaskProperty("benchmarkId");
+		if (benchmarkId == null || benchmarkId.trim().isEmpty()) {
+            // or try to get benchmark id from which this evaluator has been started
+			benchmarkId = getBenchmarkId();
+		}
 
 		PlotGenerator plotGenerator = new PlotGenerator();
 

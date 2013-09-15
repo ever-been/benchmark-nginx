@@ -8,7 +8,7 @@
 	<properties>
 		<property name="revision">4532</property>
 		<property name="numberOfClients">2</property>
-		<property name="fakeRun">true</property>
+		<property name="fakeRun">false</property>
 	</properties>
 
 	<task>

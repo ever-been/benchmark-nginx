@@ -5,7 +5,7 @@
 	<properties>
 		<property name="fromRevision">4532</property>
 		<property name="toRevision">4632</property>
-		<property name="fakeRun">true</property>
+		<property name="fakeRun">false</property>
 		<property name="task.log.level">INFO</property>
 	</properties>
 

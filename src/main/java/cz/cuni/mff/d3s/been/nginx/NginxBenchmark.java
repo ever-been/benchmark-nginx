@@ -48,9 +48,19 @@ public class NginxBenchmark extends Benchmark {
 
 		// for storing any benchmark state we use `storageGet` and `storageSet`
 		// to ensure the state is persisted even when the generator task is interrupted
-		int currentRevision = Integer.parseInt(this.storageGet("currentRevision", Integer.toString(fromRevision)));
+        int currentRevision = Integer.parseInt(this.storageGet("currentRevision", Integer.toString(fromRevision)));
 
-		// we'll return null if we should end the benchmark
+        // tells us if benchmark has been already evaluated
+        boolean evaluated = Boolean.parseBoolean(this.storageGet("evaluated", "false"));
+
+
+        // if all task contexts has been executed, run evaluation
+        if (currentRevision > toRevision && !evaluated) {
+            this.storageSet("evaluated", "true");
+            return ContextBuilder.createFromResource(NginxEvaluator.class, "NginxEvaluator.tcd.xml").build();
+        }
+
+        // we'll return null if we should end the benchmark
 		if (currentRevision > toRevision)
 			return null;
 
@@ -68,8 +78,8 @@ public class NginxBenchmark extends Benchmark {
 
 		currentRevision++;
 
-		// stores the `currentRevision` value to the benchmark persistent storage
-		this.storageSet("currentRevision", Integer.toString(currentRevision));
+        // stores the `currentRevision` value to the benchmark persistent storage
+        this.storageSet("currentRevision", Integer.toString(currentRevision));
 
 		return taskContextDescriptor;
 	}
